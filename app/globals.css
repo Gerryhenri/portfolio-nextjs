@@ -1,26 +1,224 @@
 @import "tailwindcss";
 
+/* =========================
+   ROOT THEME
+========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Light mode (optional future toggle) */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
+}
+
+/* =========================
+   BASE STYLE
+========================= */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND ANIMATION
+========================= */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-animated {
+  background: linear-gradient(270deg, #1e293b, #3b82f6, #06b6d4, #1e293b);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* =========================
+   BLOB ANIMATION (APPLE STYLE)
+========================= */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+}
+
+.animate-blob {
+  animation: blob 10s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* =========================
+   FADE IN SCROLL
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   GLASS EFFECT
+========================= */
+.glass {
+  backdrop-filter: blur(20px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+/* =========================
+   INPUT & BUTTON
+========================= */
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  outline: none;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #3b82f6;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #2563eb;
+}
+
+/* =========================
+   HOVER EFFECT HALUS
+========================= */
+.hover-soft {
+  transition: 0.4s;
+}
+
+.hover-soft:hover {
+  transform: translateY(-5px);
+}
+
+/* =========================
+   SCROLLBAR (OPTIONAL BIAR CLEAN)
+========================= */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+/* Cursor typing */
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-pulse {
+  animation: blink 1s infinite;
+}
+
+/* Hover smooth */
+a {
+  transition: 0.3s;
+}
+
+.group:hover img {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.hover-soft {
+  transition: all 0.4s ease;
+}
+
+/* =========================
+   TAILWIND LAYERS
+========================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   🔥 PROJECT IMAGE EFFECT
+========================= */
+
+/* Default: gambar abu-abu */
+.project-img {
+  filter: grayscale(100%);
+  transition: all 0.5s ease;
+}
+
+/* Saat hover parent (.group) → kembali warna + zoom */
+.group:hover .project-img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* =========================
+   🔥 PROJECT OVERLAY
+========================= */
+
+/* Default overlay hidden */
+.project-overlay {
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Muncul saat hover */
+.group:hover .project-overlay {
+  opacity: 1;
+}
+
+/* =========================
+   🔥 PROJECT CARD PREMIUM
+========================= */
+
+/* Biar card terasa hidup */
+.project-card {
+  transition: all 0.4s ease;
+}
+
+/* Hover naik dikit + shadow */
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
