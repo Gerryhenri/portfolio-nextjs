@@ -8,7 +8,7 @@ export default function Navbar() {
   const menu = ["home", "about","skills", "projects","contact"];
 
   return (
-    <nav className="fixed w-full z-50">
+    <nav className="fixed w-full z-50 no-print">
 
       {/* WRAPPER */}
       <div className="bg-black/40 backdrop-blur-md border-b border-white/10">

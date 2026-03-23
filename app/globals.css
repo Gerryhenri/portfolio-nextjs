@@ -28,8 +28,18 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
 }
 
 /* =========================
@@ -94,6 +104,62 @@ body {
   border: 1px solid var(--glass-border);
 }
 
+.glass-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)),
+    rgba(148, 163, 184, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 18px 35px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(18px);
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(103, 232, 249, 0.55);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(34, 211, 238, 0.14)),
+    rgba(59, 130, 246, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 20px 38px rgba(8, 47, 73, 0.34);
+}
+
+.glass-button:focus-visible {
+  outline: 2px solid rgba(103, 232, 249, 0.85);
+  outline-offset: 3px;
+}
+
+.glass-button--sm {
+  padding: 0.55rem 1rem;
+  font-size: 0.875rem;
+}
+
+.glass-button--full {
+  width: 100%;
+}
+
+.glass-button--accent {
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(59, 130, 246, 0.12)),
+    rgba(255, 255, 255, 0.08);
+}
+
 /* =========================
    INPUT & BUTTON
 ========================= */
@@ -104,10 +170,164 @@ body {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   outline: none;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
 }
 
 .input:focus {
   border-color: #3b82f6;
+}
+
+.input-group {
+  display: block;
+}
+
+.input-label {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.9);
+}
+
+.input--fancy {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(15, 23, 42, 0.35);
+  padding: 0.95rem 1rem;
+  color: #f8fafc;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.input--fancy::placeholder {
+  color: rgba(203, 213, 225, 0.6);
+}
+
+.input--fancy:focus {
+  border-color: rgba(103, 232, 249, 0.8);
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.11), rgba(255, 255, 255, 0.05)),
+    rgba(15, 23, 42, 0.45);
+  box-shadow:
+    0 0 0 4px rgba(34, 211, 238, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.contact-shell {
+  position: relative;
+}
+
+.contact-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.14), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.14), transparent 34%);
+  pointer-events: none;
+}
+
+.contact-panel {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.84), rgba(15, 23, 42, 0.76));
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(103, 232, 249, 0.25);
+  background: rgba(8, 47, 73, 0.45);
+  padding: 0.55rem 0.95rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #cffafe;
+}
+
+.contact-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  background: rgba(34, 197, 94, 0.12);
+  padding: 0.7rem 1rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #dcfce7;
+}
+
+.contact-choice-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-choice-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-radius: 1.3rem;
+  border: 1px solid rgba(103, 232, 249, 0.16);
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(15, 23, 42, 0.38);
+  padding: 1rem 1.1rem;
+}
+
+.contact-choice-card--muted {
+  border-color: rgba(148, 163, 184, 0.16);
+  background:
+    linear-gradient(180deg, rgba(148, 163, 184, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(15, 23, 42, 0.26);
+}
+
+.contact-choice-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.contact-choice-copy {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.contact-icon {
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.24), rgba(59, 130, 246, 0.18));
+  color: #f8fafc;
+  font-size: 1.15rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .btn {
@@ -173,9 +393,6 @@ a {
 /* =========================
    TAILWIND LAYERS
 ========================= */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* =========================
    🔥 PROJECT IMAGE EFFECT
@@ -221,4 +438,83 @@ a {
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+@media print {
+  :root {
+    --background: #ffffff;
+    --foreground: #111827;
+    --glass-bg: #ffffff;
+    --glass-border: rgba(15, 23, 42, 0.12);
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  * {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .glass,
+  .print-card {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    backdrop-filter: none !important;
+  }
+
+  .glass-button {
+    background: #eff6ff !important;
+    color: #0f172a !important;
+    border: 1px solid rgba(59, 130, 246, 0.35) !important;
+  }
+
+  .contact-panel,
+  .input--fancy,
+  .contact-info-card,
+  .contact-choice-card {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+    box-shadow: none !important;
+  }
+
+  .input-label,
+  .contact-badge {
+    color: #0f172a !important;
+    background: transparent !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+  }
+
+  .contact-link,
+  .contact-choice-title,
+  .contact-choice-copy {
+    color: #0f172a !important;
+  }
+
+  section,
+  .print-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  img {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a {
+    color: #111827 !important;
+    text-decoration: none;
+  }
 }
