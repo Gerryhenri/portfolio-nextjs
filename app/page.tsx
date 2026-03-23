@@ -31,6 +31,7 @@
     const [textIndex, setTextIndex] = useState(0);
     const [displayText, setDisplayText] = useState("");
     const [loading, setLoading] = useState(false);
+    const [whatsappInput, setWhatsappInput] = useState("");
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     // 🔥 WAJIB (mount guard)
@@ -125,6 +126,7 @@
         .then(() => {
           alert("Pesan berhasil dikirim!");
           setLoading(false);
+          setWhatsappInput("");
           form.current?.reset();
         })
         .catch((error) => {
@@ -477,6 +479,10 @@
                 </div>
 
                 <form ref={form} onSubmit={sendEmail} className="space-y-5">
+                  <input type="hidden" name="phone" value={whatsappInput} />
+                  <input type="hidden" name="no_hp" value={whatsappInput} />
+                  <input type="hidden" name="nomor_hp" value={whatsappInput} />
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <label className="input-group">
                       <span className="input-label">Nama</span>
@@ -485,7 +491,13 @@
 
                     <label className="input-group">
                       <span className="input-label">WhatsApp</span>
-                      <input name="whatsapp" placeholder="08xxxxxxxxxx" className="input input--fancy" />
+                      <input
+                        name="whatsapp"
+                        placeholder="08xxxxxxxxxx"
+                        className="input input--fancy"
+                        value={whatsappInput}
+                        onChange={(e) => setWhatsappInput(e.target.value)}
+                      />
                     </label>
                   </div>
 
