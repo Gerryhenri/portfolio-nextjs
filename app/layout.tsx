@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import {
-  Cormorant_Garamond,
   Geist_Mono,
-  Plus_Jakarta_Sans,
+  Poppins,
 } from "next/font/google";
+import { LanguageProvider } from "../components/LanguageProvider";
+import { ThemeProvider } from "../components/ThemeProvider";
 import "./globals.css";
 
-const bodyFont = Plus_Jakarta_Sans({
+const bodyFont = Poppins({
   variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -16,10 +18,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const displayFont = Cormorant_Garamond({
+const displayFont = Poppins({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -35,9 +37,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      translate="no"
       className={`${bodyFont.variable} ${displayFont.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col notranslate">
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
