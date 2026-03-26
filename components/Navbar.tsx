@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { useTheme } from "./ThemeProvider";
 
-const MENU = ["home", "about", "skills", "projects", "journey", "contact"];
+const MENU = ["home", "about", "skills", "projects", "journey", "certificates", "contact"];
 const MENU_LABELS = {
   id: {
     home: "Home",
@@ -12,6 +12,7 @@ const MENU_LABELS = {
     skills: "Keahlian",
     projects: "Project",
     journey: "Edukasi",
+    certificates: "Sertifikat",
     contact: "Kontak",
   },
   en: {
@@ -20,6 +21,7 @@ const MENU_LABELS = {
     skills: "Skills",
     projects: "Projects",
     journey: "Education",
+    certificates: "Certificates",
     contact: "Contact",
   },
 };

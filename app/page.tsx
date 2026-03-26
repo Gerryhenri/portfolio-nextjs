@@ -1,6 +1,7 @@
   "use client";
 
   import { useEffect, useState, useRef } from "react";
+  import Image from "next/image";
   import Navbar from "../components/Navbar";
   import { useLanguage } from "../components/LanguageProvider";
   import { useTheme } from "../components/ThemeProvider";
@@ -13,6 +14,7 @@
     roles,
     skillItems,
     texts,
+    credentials,
     type Project,
   } from "../lib/portfolio-data";
 
@@ -28,7 +30,8 @@
     id: {
       heroGreeting: "HALO, SAYA",
       aboutTitle: "Tentang Saya",
-      aboutBody: profile.about,
+      aboutBody:
+        "Saya Eduardus Gerry Henri, fresh graduated, lulusan Sekolah Tinggi Ilmu Komputer Yos Sudarso Jurusan Teknik Informatika berpredikat cum laude dengan IPK 3,67. Memiliki ketertarikan dan pengalaman magang serta studi independen di bidang Data Analytics dan Machine Learning. Tidak menutup kemungkinan berkarir di bidang lainnya. Keterampilan komunikasi, analisis, dan pemecahan masalah yang baik, ditopang oleh disiplin, tekun, dan bertanggung jawab.",
       cvButton: "Buka CV PDF",
       skillsTitle: "Keahlian",
       projectsTitleLead: "Project",
@@ -37,6 +40,10 @@
       journeyTitleLead: "Edukasi",
       journeyTitleAccent: "& Pengalaman",
       journeySubtitle: "Ringkasan perjalanan belajar dan pengalaman praktis yang membentuk fokus saya saat ini.",
+      certificationsTitleLead: "Sertifikat",
+      certificationsTitleAccent: "Saya",
+      certificationsSubtitle: "Kumpulan sertifikat yang menunjukkan keterampilan dan komitmen pembelajaran.",
+      certificationsHint: "Klik tombol untuk melihat detail sertifikat (PDF).",
       journeyItems: [
         {
           period: "2023 - Sekarang",
@@ -92,7 +99,8 @@
     en: {
       heroGreeting: "HELLO, I AM",
       aboutTitle: "About Me",
-      aboutBody: "Data Analyst focused on Machine Learning and Computer Vision.",
+      aboutBody:
+        "I am Eduardus Gerry Henri, a recent graduate of Sekolah Tinggi Ilmu Komputer Yos Sudarso, Informatics Engineering with cum laude GPA 3.67. I have internship and independent study experience in Data Analytics and Machine Learning, with strong communication, analytical problem-solving, discipline, diligence, and responsibility. Open to growth in other fields.",
       cvButton: "Open CV PDF",
       skillsTitle: "Skills",
       projectsTitleLead: "Selected",
@@ -101,6 +109,10 @@
       journeyTitleLead: "Education",
       journeyTitleAccent: "& Experience",
       journeySubtitle: "A quick overview of the learning path and practical work that shape my current focus.",
+      certificationsTitleLead: "Certifications",
+      certificationsTitleAccent: "Gallery",
+      certificationsSubtitle: "A collection of certificates showcasing my skills and learning milestones.",
+      certificationsHint: "Click a button to view certificate details (PDF).",
       journeyItems: [
         {
           period: "2023 - Present",
@@ -248,11 +260,8 @@
       ? "grid gap-3 md:grid-cols-2"
       : "flex justify-center xl:justify-center";
     const projectMediaCardClass = hasMultipleProjectImages
-      ? `overflow-hidden rounded-[1.35rem] border ${modalImageClass}`
-      : `mx-auto w-full max-w-[900px] overflow-hidden rounded-[1.5rem] border ${modalImageClass}`;
-    const projectMediaImageClass = hasMultipleProjectImages
-      ? "h-[300px] w-full object-contain md:h-[360px] xl:h-[430px]"
-      : "h-[420px] w-full object-contain md:h-[560px] xl:h-[720px]";
+      ? `h-[300px] md:h-[360px] overflow-hidden rounded-[1.35rem] border ${modalImageClass}`
+      : `mx-auto w-full max-w-[900px] h-[400px] md:h-[500px] xl:h-[600px] overflow-hidden rounded-[1.5rem] border ${modalImageClass}`;
     const projectDetailParagraphs = selectedProject?.details?.length
       ? selectedProject.details
       : selectedProject
@@ -466,12 +475,14 @@
 
             <div className="relative glass p-4 rounded-2xl">
 
-              <img
+              <Image
                 src="/images/profil.jpg"
                 alt={`Foto profil ${profile.name}`}
+                width={300}
+                height={400}
                 className="w-[300px] h-[400px] object-cover rounded-xl"
               />
-              
+
             </div>
 
           </div>
@@ -484,9 +495,11 @@
 
             <div className="grid md:grid-cols-2 gap-10 items-center">
 
-              <img
+              <Image
                 src="/images/miror.jpeg"
                 alt={`Foto ${profile.name}`}
+                width={224}
+                height={224}
                 className="w-56 h-56 object-cover rounded-xl mx-auto"
               />
 
@@ -494,9 +507,23 @@
                 <h2 className={`text-3xl font-semibold mb-6 ${headingTextClass}`}>
                   {currentCopy.aboutTitle}
                 </h2>
-                <p className={bodyTextClass}>
+                <p className={`${bodyTextClass} mb-4`}>
                   {currentCopy.aboutBody}
                 </p>
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                  <li className="flex gap-2 items-start">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-cyan-500" />
+                    Magang dan studi independen di Data Analytics & Deteksi Objek berbasis deep learning.
+                  </li>
+                  <li className="flex gap-2 items-start">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-cyan-500" />
+                    Kemampuan komunikasi, analisis, dan pemecahan masalah yang baik.
+                  </li>
+                  <li className="flex gap-2 items-start">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-cyan-500" />
+                    Disiplin, tekun, dan bertanggung jawab dalam pekerjaan.
+                  </li>
+                </ul>
               </div>
               <a
                 href="/cv"
@@ -527,9 +554,12 @@
                   key={i}
                   className="relative group glass p-6 rounded-xl flex items-center justify-center hover-soft cursor-pointer"
                 >
-                  <img
+                  <Image
                     src={s.img}
                     alt={s.name}
+                    width={40}
+                    height={40}
+                    unoptimized
                     className={`w-10 h-10 ${s.name === "GitHub" ? githubSkillClass : ""}`}
                   />
 
@@ -564,10 +594,12 @@
               className={`relative group md:col-span-2 h-[300px] rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${framedCardClass}`}
               onClick={() => setSelectedProject(currentCopy.projects[0])}
             >
-              <img
-                src={currentCopy.projects[0].img}
-                alt={currentCopy.projects[0].title}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+<Image
+                    src={currentCopy.projects[0].img}
+                    alt={currentCopy.projects[0].title}
+                    fill
+                    sizes="(min-width: 768px) 66vw, 100vw"
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -610,10 +642,12 @@
                   className={`relative group h-[90px] rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${framedCardClass}`}
                   onClick={() => setSelectedProject(project)}
                 >
-                  <img
+                  <Image
                     src={project.img}
                     alt={project.title}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                   />
 
                   <div className="absolute inset-0 bg-black/70 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -657,9 +691,13 @@
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className={`${modalPanelClass} ${framedCardClass} max-h-[94vh] w-full max-w-[min(96vw,1380px)] overflow-y-auto rounded-[2rem] border p-4 md:p-6 xl:p-7`}
+              className={`${modalPanelClass} ${framedCardClass} max-h-[94vh] w-full max-w-[min(96vw,1380px)] overflow-y-auto rounded-[2rem] border p-4 md:p-6 xl:p-7 flex flex-col`}
             >
-              <div className="mb-4 flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+              <div className="sticky top-0 mb-4 flex items-start justify-between gap-3 border-b border-white/10 pb-4 z-10 backdrop-blur-sm rounded-t-[2rem]"
+                style={{ 
+                  backgroundColor: theme === "dark" ? "rgba(2, 8, 23, 0.95)" : "rgba(255, 255, 255, 0.95)"
+                }}
+              >
                 <div className="min-w-0">
                   <p className={`text-[11px] font-semibold uppercase tracking-[0.28em] ${modalMutedTextClass}`}>Project Detail</p>
                   <h3 className={`mt-2 text-2xl font-bold leading-none md:text-[2.8rem] ${headingTextClass}`}>{selectedProject.title}</h3>
@@ -678,11 +716,14 @@
                 <div className="space-y-4">
                   <div className={projectMediaWrapperClass}>
                     {projectDetailImages.map((image, index) => (
-                      <div key={`${selectedProject.title}-${index}`} className={projectMediaCardClass}>
-                        <img
+                      <div key={`${selectedProject.title}-${index}`} className={`${projectMediaCardClass} relative`}>
+                        <Image
                           src={image}
                           alt={`${selectedProject.title} preview ${index + 1}`}
-                          className={projectMediaImageClass}
+                          fill
+                          className="object-contain"
+                          sizes="(min-width: 1024px) 40vw, 90vw"
+                          unoptimized
                         />
                       </div>
                     ))}
@@ -840,6 +881,41 @@
           </div>
         </section>
 
+        {/* CERTIFICATES */}
+        <section id="certificates" className="fade-in print-section py-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-12 text-center">
+              <h2 className={`text-3xl font-bold md:text-5xl ${headingTextClass}`}>
+                <span>{currentCopy.certificationsTitleLead} </span>
+                <span className="text-cyan-300">{currentCopy.certificationsTitleAccent}</span>
+              </h2>
+
+              <p className={`mx-auto mt-4 max-w-2xl text-sm md:text-base ${bodyTextClass}`}>
+                {currentCopy.certificationsSubtitle}
+              </p>
+              <p className={`mt-3 text-xs uppercase tracking-wider ${softTextClass}`}>
+                {currentCopy.certificationsHint}
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {credentials.map((item) => (
+                <article key={item.id} className="rounded-xl border p-5 shadow-sm hover:shadow-md transition">
+                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                  <a
+                    href={item.file}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-white hover:bg-cyan-600"
+                  >
+                    {locale === "id" ? "Lihat Sertifikat" : "View Certificate"}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CONTACT */}
         <section id="contact" className="fade-in print-section py-24 px-6 flex justify-center">
 
@@ -931,7 +1007,7 @@
                   </div>
                 </div>
 
-                <form ref={form} onSubmit={sendEmail} className="space-y-5">
+                <form ref={form} onSubmit={sendEmail} className="space-y-5" suppressHydrationWarning>
                   <input type="hidden" name="phone" value={whatsappInput} />
                   <input type="hidden" name="no_hp" value={whatsappInput} />
                   <input type="hidden" name="nomor_hp" value={whatsappInput} />
@@ -939,7 +1015,7 @@
                   <div className="grid md:grid-cols-2 gap-4">
                     <label className="input-group">
                       <span className="input-label">{currentCopy.nameLabel}</span>
-                      <input name="nama" placeholder={currentCopy.namePlaceholder} required className="input input--fancy" />
+                      <input name="nama" placeholder={currentCopy.namePlaceholder} required className="input input--fancy" suppressHydrationWarning />
                     </label>
 
                     <label className="input-group">
@@ -950,18 +1026,19 @@
                         className="input input--fancy"
                         value={whatsappInput}
                         onChange={(e) => setWhatsappInput(e.target.value)}
+                        suppressHydrationWarning
                       />
                     </label>
                   </div>
 
                   <label className="input-group">
                     <span className="input-label">{currentCopy.emailLabel}</span>
-                    <input type="email" name="email" placeholder={currentCopy.emailPlaceholder} required className="input input--fancy" />
+                    <input type="email" name="email" placeholder={currentCopy.emailPlaceholder} required className="input input--fancy" suppressHydrationWarning />
                   </label>
 
                   <label className="input-group">
                     <span className="input-label">{currentCopy.messageLabel}</span>
-                    <textarea name="pesan" rows={5} placeholder={currentCopy.messagePlaceholder} required className="input input--fancy min-h-36 resize-none" />
+                    <textarea name="pesan" rows={5} placeholder={currentCopy.messagePlaceholder} required className="input input--fancy min-h-36 resize-none" suppressHydrationWarning />
                   </label>
 
                   <button type="submit" className="glass-button glass-button--accent glass-button--full no-print">

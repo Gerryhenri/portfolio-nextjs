@@ -70,15 +70,15 @@ export default function CvPage() {
           },
           {
             ...projects[1],
-            title: "YOLO Object Detection",
+            title: "ESP32 Fire-Fighting Robot",
             detail:
-              "YOLO-based real-time object detection implementation using OpenCV.",
+              "A mobile fire-fighting robot built with ESP32, Bluetooth control, and a mini water pump.",
           },
           {
             ...projects[2],
-            title: "Fish Farming IoT",
+            title: "RevoU Data Analytics",
             detail:
-              "Sensor-based monitoring system for fish farming environments.",
+              "Superstore sales analytics project with an interactive Looker Studio dashboard integrated into a Next.js web app.",
           },
         ];
 
@@ -237,3 +237,6 @@ export default function CvPage() {
     </main>
   );
 }
+
+
+
