@@ -38,31 +38,31 @@
       projectsTitleAccent: "Pilihan",
       projectsSubtitle: "Beberapa karya yang menonjolkan fokus saya di data, machine learning, dan computer vision.",
       journeyTitleLead: "Edukasi",
-      journeyTitleAccent: "& Pengalaman",
-      journeySubtitle: "Ringkasan perjalanan belajar dan pengalaman praktis yang membentuk fokus saya saat ini.",
+      journeyTitleAccent: "& Magang",
+      journeySubtitle: "Perjalanan akademis di STIKOM dan pengalaman magang serta studi independen yang memperkuat kompetensi Data Analytics dan Machine Learning.",
       certificationsTitleLead: "Sertifikat",
       certificationsTitleAccent: "Saya",
       certificationsSubtitle: "Kumpulan sertifikat yang menunjukkan keterampilan dan komitmen pembelajaran.",
       certificationsHint: "Klik tombol untuk melihat detail sertifikat (PDF).",
       journeyItems: [
         {
-          period: "2023 - Sekarang",
-          title: "Pendalaman Machine Learning",
-          org: "Belajar Mandiri & Implementasi Proyek",
-          desc: "Mendalami klasifikasi data, computer vision, dan evaluasi model melalui studi mandiri serta eksperimen berbasis project.",
+          period: "2020 - 2024",
+          title: "S1 Teknik Informatika (Cum Laude)",
+          org: "STIKOM Yos Sudarso",
+          desc: "Lulus dengan IPK 3,67, mendalami Data Analytics, ML, CV, fullstack development, dan transformasi digital.",
         },
         {
-          period: "2024 - Sekarang",
-          title: "Pengalaman Project Portfolio",
-          org: "Personal & Freelance-style Development",
-          desc: "Membangun project analisis data, deteksi objek, serta monitoring IoT untuk mengasah penerapan solusi yang lebih nyata.",
+          period: "Agustus 2023 - Februari 2024",
+          title: "Magang BRIN",
+          org: "Program MBKM BRIN",
+          desc: "Pengembangan website tracker mobil listrik berbasis deep learning untuk sistem monitoring dan visualisasi.",
           accent: true,
         },
         {
-          period: "Fokus Saat Ini",
-          title: "Data Analyst & AI Builder",
-          org: "Eksplorasi Data, Visualisasi, dan Otomasi",
-          desc: "Berfokus pada pengolahan data, dashboard, machine learning, dan integrasi sistem yang efisien dan mudah dipahami pengguna.",
+          period: "Februari 2024 - Juli 2024",
+          title: "Studi Independen RevoU x MSIB",
+          org: "Data Analytics & Dashboard",
+          desc: "Bangun dashboard interaktif Looker Studio + html,css, dan javascript serta analisis data penjualan Superstore untuk insight bisnis.",
         },
       ] as JourneyEntry[],
       detailButton: "Detail",
@@ -107,31 +107,31 @@
       projectsTitleAccent: "Projects",
       projectsSubtitle: "Some works that highlight my expertise in data, machine learning, and computer vision.",
       journeyTitleLead: "Education",
-      journeyTitleAccent: "& Experience",
-      journeySubtitle: "A quick overview of the learning path and practical work that shape my current focus.",
+      journeyTitleAccent: "& Internships",
+      journeySubtitle: "Academic and practical experience that support my work as a data professional.",
       certificationsTitleLead: "Certifications",
       certificationsTitleAccent: "Gallery",
       certificationsSubtitle: "A collection of certificates showcasing my skills and learning milestones.",
       certificationsHint: "Click a button to view certificate details (PDF).",
       journeyItems: [
         {
-          period: "2023 - Present",
-          title: "Machine Learning Development",
-          org: "Self-directed Learning & Project Implementation",
-          desc: "Deepening my understanding of data classification, computer vision, and model evaluation through hands-on project work.",
+          period: "2020 - 2024",
+          title: "B.Sc. Informatics Engineering (Cum Laude)",
+          org: "STIKOM Yos Sudarso",
+          desc: "Graduated with GPA 3.67, majoring in Data Analytics, Machine Learning, Computer Vision, and Fullstack Development.",
         },
         {
-          period: "2024 - Present",
-          title: "Portfolio Project Experience",
-          org: "Personal & Freelance-style Development",
-          desc: "Building data analysis, object detection, and IoT monitoring projects to strengthen practical problem-solving skills.",
+          period: "Aug 2023 - Feb 2024",
+          title: "Internship at BRIN",
+          org: "MBKM BRIN Program",
+          desc: "Developed electric vehicle tracking website with deep learning components for monitoring and visualization.",
           accent: true,
         },
         {
-          period: "Current Focus",
-          title: "Data Analyst & AI Builder",
-          org: "Data Exploration, Visualization, and Automation",
-          desc: "Focused on data processing, dashboards, machine learning, and efficient systems that stay easy to understand for users.",
+          period: "Feb 2024 - Jul 2024",
+          title: "RevoU x MSIB Independent Study",
+          org: "Data Analytics & Dashboard Project",
+          desc: "Built an interactive Looker Studio dashboard and integrated it into a Next.js web app for business insight.",
         },
       ] as JourneyEntry[],
       detailButton: "Details",
@@ -357,15 +357,17 @@
       e.preventDefault();
       setLoading(true);
 
-      if (!form.current) return;
+      if (!form.current) {
+        setLoading(false);
+        return;
+      }
 
-      emailjs
-        .sendForm(
-          "service_tez8crh",
-          "template_c563kc8",
-          form.current,
-          "pKQcZVtMOM9rJOGeS"
-        )
+      emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAIL_SERVICE!,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLATE!,
+        form.current,
+        process.env.NEXT_PUBLIC_EMAIL_KEY!
+      )
         .then(() => {
           alert(currentCopy.successMessage);
           setLoading(false);
@@ -373,7 +375,8 @@
           form.current?.reset();
         })
         .catch((error) => {
-          alert(currentCopy.errorMessage + error.text);
+          console.error(error);
+          alert(currentCopy.errorMessage + (error?.text || "Unknown error"));
           setLoading(false);
         });
     };
